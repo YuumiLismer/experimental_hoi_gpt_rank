@@ -313,8 +313,8 @@ class ExperimentPipeline:
         for n_eff in self.n_eff_list:
             print(f'  N_eff = {n_eff:.1e}:')
             for grp in sorted(
-                k for k in analysis[n_eff] if k != 'all',
-                key=lambda x: x
+                (k for k in analysis[n_eff] if k != 'all'),
+                key=lambda x: (isinstance(x, str), str(x) if isinstance(x, str) else x)
             ) + ['all']:
                 grp_info      = analysis[n_eff][grp]
                 best_K        = grp_info['best_K']
